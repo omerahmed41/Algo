@@ -11,7 +11,7 @@ def selectionSort(arr):
     
 
 if __name__ == '__main__':
-
-    arr = [4,5,2,3,6,1,9,7,8]
+    arr = [4, 5, 2, 3, 6, 1, 9, 7, 8]
     print(f'Unsorted array: {arr}')
     print(f'Sorted array: {selectionSort(arr)}')
+    

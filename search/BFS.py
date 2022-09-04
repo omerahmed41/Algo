@@ -1,20 +1,19 @@
-var maxDepth = function(root) {
-    if(!root) return 0;
-    // using BFS and counting levels
-    // not recommended to use array as queue
-    let levels = 0, queue = [];
-    queue.push(root);
-    
-    while(queue.length > 0){
-        let count = queue.length;
-        
-        for(let i = 0; i < count; i++){
-            const node = queue.shift();
-            if(node.right) queue.push(node.right);
-            if(node.left) queue.push(node.left);
-            
-        }
-        levels++;
-    }
-    return levels;
-};
+def max_depth(root):
+    if not root:
+        return None
+
+    levels = 0
+    queue = [root]
+
+    while queue:
+        count = len(queue)
+
+        node = queue.pop(0)
+        for i in range(count):
+            if node.right:
+                queue.append(node.right)
+            if node.left:
+                queue.append(node.left)
+        levels +=1
+
+    return levels
