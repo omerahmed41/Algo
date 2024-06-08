@@ -1,14 +1,17 @@
+import collections
+
+
 def max_depth(root):
     if not root:
         return None
 
     levels = 0
-    queue = [root]
+    queue = collections.deque([root])
 
     while queue:
         count = len(queue)
 
-        node = queue.pop(0)
+        node = queue.popleft()
         for i in range(count):
             if node.right:
                 queue.append(node.right)

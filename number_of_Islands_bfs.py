@@ -24,6 +24,8 @@ Input: grid = [
 ]
 Output: 3
 '''
+import collections
+
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -33,21 +35,21 @@ class Solution:
         rows, cols = len(grid), len(grid[0])
         visited = set()
         
-        def is_valid(r, c):
+        def get_diractions(r,c):
+            return [(r + 1, c), (r -1, c), (r, c + 1), (r, c-1)]
+        def is_valid(r,c):
             return r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visited
-        
-        def bfs(r,c):
-            directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+        def bfs(r, c):
             visited.add((r, c))
-            q = []
-            q.append((r, c))
+            q = collections.deque([(r, c)])
+
             while q:
-                row, col = q.pop(0)
-                for dr, dc in directions:
-                    r , c = row + dr, col + dc
-                    if is_valid(r, c):
-                        q.append((r, c))
-                        visited.add((r, c))
+                r, c = q.popleft()
+                for dr, dc in get_diractions(r, c):
+                    if is_valid(dr, dc):
+                        q.append((dr, dc))
+                        visited.add((dr, dc))
                         
         for r in range(rows):
             for c in range(cols):

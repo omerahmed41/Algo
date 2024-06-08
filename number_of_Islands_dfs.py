@@ -27,34 +27,31 @@ Output: 3
 
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        island = 0
-        if not grid: 
-            return island
-        rows, cols = len(grid), len(grid[0])
+        res = 0
+        if not grid:
+            return res
+        raws, cols = len(grid), len(grid[0])
+
         visited = set()
-        
-        def is_valid(r, c):
-            return r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visited
-        
-        def bfs(r,c):
-            directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+        def get_diractions(r,c):
+            return [(r + 1,c), (r -1,c), (r, c + 1), (r, c-1)]
+
+        def is_valid(r,c):
+            return r in range(raws) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visited
+
+        def dfs(r, c):
             visited.add((r, c))
-            q = []
-            q.append((r, c))
-            while q:
-                row, col = q.pop(0)
-                for dr, dc in directions:
-                    r , c = row + dr, col + dc
-                    if is_valid(r, c):
-                        q.append((r, c))
-                        visited.add((r, c))
-                        
-        for r in range(rows):
-            for c in range(cols):
-                if is_valid(r, c):
-                    print(grid[r][c])
-                    bfs(r, c)
-                    island += 1
-        return island
-        
+            for dr, dc in get_diractions(r, c):
+                if is_valid(dr, dc):
+                    print(visited)
+                    dfs(dr, dc)
+
+        for i in range(raws):
+            for j in range(cols):
+                if is_valid(i, j):
+                    dfs(i, j)
+                    print("count: ", i, j)
+                    res += 1
+        return res
         
