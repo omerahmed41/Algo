@@ -30,30 +30,30 @@ class Solution:
         island = 0
         if not grid: 
             return island
-        rows, cols = len(grid), len (grid[0])
-        visted = set()
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
         
-        def is_valid(r,c):
-            return r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r,c) not in visted
+        def is_valid(r, c):
+            return r in range(rows) and c in range(cols) and grid[r][c] == "1" and (r, c) not in visited
         
         def bfs(r,c):
-            directions = [(1,0), (0,1) , (-1,0), (0,-1)]
-            visted.add((r,c))
+            directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+            visited.add((r, c))
             q = []
-            q.append((r,c))
+            q.append((r, c))
             while q:
                 row, col = q.pop(0)
                 for dr, dc in directions:
-                    r , c = row + dr , col + dc
-                    if is_valid(r,c):
-                        q.append((r,c))
-                        visted.add((r,c))
+                    r , c = row + dr, col + dc
+                    if is_valid(r, c):
+                        q.append((r, c))
+                        visited.add((r, c))
                         
         for r in range(rows):
-            for c in range (cols):
-                if is_valid(r,c):
+            for c in range(cols):
+                if is_valid(r, c):
                     print(grid[r][c])
-                    bfs(r,c)
+                    bfs(r, c)
                     island += 1
         return island
         
